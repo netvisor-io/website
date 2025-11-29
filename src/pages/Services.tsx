@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Code2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
+import logo from "@/assets/netvisor-logo.png";
 
 interface Service {
   name: string;
@@ -40,11 +41,14 @@ const Services = () => {
             </a>
           </Button>
           
-          <h1 className="font-display text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            NetVisor
-          </h1>
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="NetVisor" className="w-8 h-8" />
+            <h1 className="font-display text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              NetVisor
+            </h1>
+          </div>
 
-          <div className="w-24" /> {/* Spacer for centering */}
+          <div className="w-24" />
         </div>
       </header>
 
@@ -58,7 +62,7 @@ const Services = () => {
                 Service Detection
               </Badge>
               
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent">
                 Supported Services
               </h1>
               
@@ -142,7 +146,7 @@ const Services = () => {
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center space-y-6">
-              <h2 className="text-3xl md:text-4xl font-display bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-display bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Missing a Service?
               </h2>
               <p className="text-lg text-muted-foreground">

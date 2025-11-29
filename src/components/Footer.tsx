@@ -1,4 +1,4 @@
-import { Github, BookOpen, Twitter } from "lucide-react";
+import { Github, BookOpen, MessageSquare } from "lucide-react";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,7 +9,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="font-display text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h3 className="font-display text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               NetVisor
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -103,6 +103,15 @@ export const Footer = () => {
               >
                 <BookOpen className="w-5 h-5" />
               </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-smooth"
+                aria-label="Discord"
+              >
+                <MessageSquare className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </div>
@@ -113,6 +122,18 @@ export const Footer = () => {
             © {currentYear} NetVisor. Open source and built with ❤️
           </p>
           <div className="flex gap-6 text-sm">
+            <a
+              href="/privacy"
+              className="text-muted-foreground hover:text-primary transition-smooth"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/terms"
+              className="text-muted-foreground hover:text-primary transition-smooth"
+            >
+              Terms of Service
+            </a>
             <a
               href="https://github.com/mayanayza/netvisor/blob/main/LICENSE"
               target="_blank"

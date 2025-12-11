@@ -1,8 +1,20 @@
 <script lang="ts">
 	import '../app.css';
 	import { GithubStars, NewsletterSignup } from '@netvisor/ui';
-	import { Github, FileText, MessageCircle } from 'lucide-svelte';
+	import { Github, MessageCircle } from 'lucide-svelte';
 	import { PUBLIC_PLUNK_API_KEY } from '$env/static/public';
+	import { onMount } from 'svelte';
+
+	let healthStatus = $state<'loading' | 'healthy' | 'unhealthy'>('loading');
+
+	onMount(async () => {
+		try {
+			const res = await fetch('https://app.netvisor.io/api/health');
+			healthStatus = res.ok ? 'healthy' : 'unhealthy';
+		} catch {
+			healthStatus = 'unhealthy';
+		}
+	});
 </script>
 
 <div class="min-h-screen flex flex-col">
@@ -74,15 +86,26 @@
 							</a>
 						</li>
 						<li>
-							<a href="https://github.com/netvisor-io/netvisor/issues" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm flex items-center gap-2">
-								<FileText class="h-4 w-4" />
-								Issues
+							<a href="https://discord.gg/b7ffQr8AcZ" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm flex items-center gap-2">
+								<MessageCircle class="h-4 w-4" />
+								Discord
 							</a>
 						</li>
 						<li>
-							<a href="https://github.com/netvisor-io/netvisor/discussions" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm flex items-center gap-2">
-								<MessageCircle class="h-4 w-4" />
-								Discussions
+							<a href="https://app.netvisor.io/api/health" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm flex items-center gap-2">
+								<span class="relative flex h-3 w-3">
+									{#if healthStatus === 'loading'}
+										<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-gray-400 opacity-75"></span>
+										<span class="relative inline-flex h-3 w-3 rounded-full bg-gray-500"></span>
+									{:else if healthStatus === 'healthy'}
+										<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+										<span class="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
+									{:else}
+										<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+										<span class="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
+									{/if}
+								</span>
+								Status
 							</a>
 						</li>
 					</ul>

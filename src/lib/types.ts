@@ -25,20 +25,21 @@ export interface BillingPlan {
 
 export interface BillingPlanMetadata {
 	features: {
-		share_views: boolean;
-		remove_created_with: boolean;
 		audit_logs: boolean;
-		api_access: boolean;
-		onboarding_call: boolean;
 		commercial_license: boolean;
+		community_support: boolean;
 		custom_sso: boolean;
-		dedicated_instance: boolean;
-		on_premise_installation: boolean;
-		whitelabeling: boolean;
+		email_support: boolean;
+		embeds: boolean;
 		invoice_billing: boolean;
 		live_chat_support: boolean;
-		embeds: boolean;
-		email_support: boolean;
+		managed_deployment: boolean;
+		onboarding_call: boolean;
+		priority_support: boolean;
+		remove_created_with: boolean;
+		share_views: boolean;
+		webhooks: boolean;
+		whitelabeling: boolean;
 	};
 	is_commercial: boolean;
 	hosting: string;

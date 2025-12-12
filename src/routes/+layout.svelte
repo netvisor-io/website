@@ -36,8 +36,9 @@
 
 				<div class="flex items-center gap-6">
 					<a href="/pricing" class="text-gray-400 transition-colors hover:text-white">Pricing</a>
+					<a href="/roadmap" class="text-gray-400 transition-colors hover:text-white">Roadmap</a>
 					<a
-						href="https://docs.netvisor.io"
+						href="https://github.com/netvisor-io/netvisor/tree/main/docs"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-gray-400 transition-colors hover:text-white"
@@ -78,13 +79,14 @@
 					<ul class="space-y-2">
 						<li>
 							<a href="/services" class="text-sm text-gray-400 hover:text-white"
-								>Supported Services</a
+								>Discoverable Services</a
 							>
 						</li>
 						<li><a href="/pricing" class="text-sm text-gray-400 hover:text-white">Pricing</a></li>
+						<li><a href="/roadmap" class="text-sm text-gray-400 hover:text-white">Roadmap</a></li>
 						<li>
 							<a
-								href="https://docs.netvisor.io"
+								href="https://github.com/netvisor-io/netvisor/blob/main/docs/"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="text-sm text-gray-400 hover:text-white">Documentation</a

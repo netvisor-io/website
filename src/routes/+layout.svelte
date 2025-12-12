@@ -16,10 +16,29 @@
 	let healthStatus = $state<'loading' | 'healthy' | 'unhealthy'>('loading');
 	let mobileMenuOpen = $state(false);
 
+	import posthog from 'posthog-js'
+	import { browser } from '$app/environment';
+
+	export const load = async () => {
+	if (browser) {
+		posthog.init(
+		'phc_9atkOQdO4ttxZwrpMRU42KazQcah6yQaU8aX9ts6SrK',
+		{
+			api_host: 'https://us.i.posthog.com',
+			defaults: '2025-11-30',
+			person_profiles: 'always', // or 'always' to create profiles for anonymous users as well
+		}
+		)
+	}
+
+	return
+	};
+
 	onMount(async () => {
 		try {
 			const res = await fetch('https://app.netvisor.io/api/health');
 			healthStatus = res.ok ? 'healthy' : 'unhealthy';
+			await load()
 		} catch {
 			healthStatus = 'unhealthy';
 		}
@@ -33,12 +52,6 @@
 		mobileMenuOpen = false;
 	}
 </script>
-
-<svelte:head>
-	{#if !dev}
-		<script src="https://app.rybbit.io/api/script.js" data-site-id="d62db73b8794" defer></script>
-	{/if}
-</svelte:head>
 
 <div class="flex min-h-screen flex-col">
 	<!-- Header -->

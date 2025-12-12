@@ -41,6 +41,17 @@
 			metadata: {
 				is_coming_soon: true
 			}
+		},
+		{
+			id: "topology-versioning",
+			name: "Topology Versioning & Lineage",
+			description: "Track how your network evolves over time. Compare snapshots, visualize changes, and explore topology history.",
+			category: "Visualization",
+			icon: null,
+			color: null,
+			metadata: {
+				is_coming_soon: true
+			}
 		}
 	];
 

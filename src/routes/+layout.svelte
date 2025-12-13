@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
 	import posthog from 'posthog-js';
+	import CookieConsent from '$lib/components/CookieConsent.svelte';
 
 	interface Props {
 		children: Snippet;
@@ -24,7 +25,7 @@
 				ui_host: 'https://us.posthog.com',
 				defaults: '2025-11-30',
 				secure_cookie: true,
-				cookieless_mode: 'always',
+				cookieless_mode: 'on_reject',
 				person_profiles: 'always' // or 'always' to create profiles for anonymous users as well
 			});
 		}
@@ -268,3 +269,5 @@
 		</div>
 	</footer>
 </div>
+
+<CookieConsent/>

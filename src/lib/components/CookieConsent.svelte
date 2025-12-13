@@ -1,8 +1,16 @@
 <script lang="ts">
 	import '@beyonk/gdpr-cookie-consent-banner/banner.css';
-	import GdprBanner from '@beyonk/gdpr-cookie-consent-banner';
 	import posthog from 'posthog-js';
-	import { browser, dev } from '$app/environment';
+	import { dev } from '$app/environment';
+	import { onMount } from 'svelte';
+	import type { Component } from 'svelte';
+
+	let GdprBanner: Component<any> | null = $state(null);
+
+	onMount(async () => {
+		const module = await import('@beyonk/gdpr-cookie-consent-banner');
+		GdprBanner = module.default;
+	});
 
 	function handleAnalytics(event: CustomEvent<{ agreed: boolean }>) {
           if (posthog.__loaded) {
@@ -15,7 +23,7 @@
       }
 </script>
 
-{#if browser}
+{#if GdprBanner}
 <GdprBanner
 	cookieName="netvisor_gdpr"
 	heading="Cookie Settings"

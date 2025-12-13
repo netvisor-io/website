@@ -391,7 +391,7 @@
 	},
 	{
 		"id": "CommercialSelfHosted",
-		"name": "Commercial Self-Hosted",
+		"name": "Self Hosted",
 		"description": "Commercial license for self-managed deployments — full control over configuration and integrations",
 		"category": null,
 		"icon": "ServerCog",
@@ -508,7 +508,7 @@
 	},
 	{
 		"id": "CommercialSelfHosted",
-		"name": "Commercial Self-Hosted",
+		"name": "Self Hosted",
 		"description": "Commercial license for self-managed deployments — full control over configuration and integrations",
 		"category": null,
 		"icon": "ServerCog",

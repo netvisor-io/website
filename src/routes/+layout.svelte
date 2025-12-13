@@ -25,8 +25,8 @@
 				ui_host: 'https://us.posthog.com',
 				defaults: '2025-11-30',
 				secure_cookie: true,
-				cookieless_mode: 'on_reject',
-				person_profiles: 'always' // or 'always' to create profiles for anonymous users as well
+				opt_out_capturing_by_default: true,
+				person_profiles: 'always'
 			});
 		}
 

@@ -163,8 +163,6 @@
 		return new Map(sortedEntries);
 	});
 
-	let isMobileScrollable = $derived(filteredPlans.length > 2);
-
 	// Grid column template based on number of plans
 	let gridColumns = $derived.by(() => {
 		const planCount = filteredPlans.length;
@@ -180,16 +178,16 @@
 	function formatBasePricing(plan: BillingPlan): string {
 		const metadata = billingPlanHelpers.getMetadata(plan.type);
 		if (metadata?.custom_price) return metadata.custom_price;
-		return `$${plan.base_cents / 100}/${plan.rate}`;
+		return `$${plan.base_cents / 100} / ${plan.rate}`;
 	}
 
 	function formatSeatAddonPricing(plan: BillingPlan): string {
-		if (plan.seat_cents) return `+$${plan.seat_cents / 100}/seat/${plan.rate.toLowerCase()}`;
+		if (plan.seat_cents) return `+$${plan.seat_cents / 100} / seat / ${plan.rate.toLowerCase()}`;
 		return '';
 	}
 
 	function formatNetworkAddonPricing(plan: BillingPlan): string {
-		if (plan.network_cents) return `+$${plan.network_cents / 100}/network/${plan.rate.toLowerCase()}`;
+		if (plan.network_cents) return `+$${plan.network_cents / 100} / network / ${plan.rate.toLowerCase()}`;
 		return '';
 	}
 
@@ -289,7 +287,9 @@
 					{@const colorHelper = billingPlanHelpers.getColorHelper(plan.type)}
 					<div class="grid-cell plan-cell">
 						<div class="flex items-center justify-center gap-2 py-2 lg:py-3">
-							<IconComponent class="{colorHelper.icon} h-4 w-4 lg:h-8 lg:w-8" />
+							{#if planFilter != 'all'}
+								<IconComponent class="{colorHelper.icon} h-4 w-4 lg:h-8 lg:w-8" />
+							{/if}
 							<span class="text-primary text-sm font-semibold lg:text-lg">{billingPlanHelpers.getName(plan.type)}</span>
 						</div>
 					</div>
@@ -305,8 +305,8 @@
 				</div>
 				{#each filteredPlans as plan (plan.type)}
 					<div class="grid-cell plan-cell text-center">
-						<div class="flex flex-col items-center space-y-1">
-							<div class="text-primary text-sm font-bold lg:text-2xl">{formatBasePricing(plan)}</div>
+						<div class="flex min-w-0 flex-col items-center space-y-1">
+							<div class="min-w-0 text-primary text-sm font-bold lg:text-2xl">{formatBasePricing(plan)}</div>
 							{#if plan.trial_days > 0 && !hasCustomPrice(plan)}
 								<div class="text-xs font-medium text-success">{plan.trial_days}-day free trial</div>
 							{/if}
@@ -448,26 +448,26 @@
 					{@const commercial = isCommercial(plan)}
 					{@const trial = hasTrial(plan)}
 					<div class="grid-cell plan-cell">
-						<div class="flex flex-col gap-1 lg:gap-2">
+						<div class="flex flex-col gap-4">
 							{#if hosting === 'Cloud'}
-								<button type="button" onclick={() => onPlanSelect(plan)} class="btn-primary w-full whitespace-nowrap text-xs lg:text-sm">
+								<button type="button" onclick={() => onPlanSelect(plan)} class="px-2 w-full btn-primary whitespace-nowrap text-xs lg:text-sm">
 									{trial ? 'Start Free Trial' : 'Get Started'}
 								</button>
 								{#if commercial}
 									{@const subject = encodeURIComponent(`NetVisor ${plan.type} Plan Inquiry`)}
 									{@const body = encodeURIComponent(`Hi,\n\nI'm interested in the ${plan.type} plan.`)}
-									<a href="mailto:maya@netvisor.io?subject={subject}&body={body}" class="btn-secondary inline-block w-full whitespace-nowrap text-center text-xs lg:text-sm">Contact Us</a>
+									<a href="mailto:maya@netvisor.io?subject={subject}&body={body}" class="btn-secondary w-full inline-block whitespace-nowrap text-center text-xs lg:text-sm">Contact Us</a>
 								{/if}
 							{:else if hosting === 'Self-Hosted'}
 								{#if commercial}
 									{@const subject = encodeURIComponent(`NetVisor ${plan.type} Plan Inquiry`)}
 									{@const body = encodeURIComponent(`Hi,\n\nI'm interested in the ${plan.type} plan.`)}
-									<a href="mailto:maya@netvisor.io?subject={subject}&body={body}" class="btn-primary inline-block w-full whitespace-nowrap text-center text-xs lg:text-sm">Contact Us</a>
+									<a href="mailto:maya@netvisor.io?subject={subject}&body={body}" class="btn-primary w-full inline-block whitespace-nowrap text-center text-xs lg:text-sm">Contact Us</a>
 								{:else}
-									<a href="https://github.com/netvisor-io/netvisor" target="_blank" rel="noopener noreferrer" class="btn-secondary inline-block w-full whitespace-nowrap text-center text-xs lg:text-sm">View on GitHub</a>
+									<a href="https://github.com/netvisor-io/netvisor" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full inline-block whitespace-nowrap text-center text-xs lg:text-sm">View on GitHub</a>
 								{/if}
 							{:else if commercial}
-								<a href="mailto:maya@netvisor.io" class="btn-primary inline-block w-full whitespace-nowrap text-center text-xs lg:text-sm">Contact Us</a>
+								<a href="mailto:maya@netvisor.io" class="btn-primary inline-block whitespace-nowrap w-full text-center text-xs lg:text-sm">Contact Us</a>
 							{/if}
 						</div>
 					</div>
@@ -504,6 +504,11 @@
 		z-index: 20;
 		overflow-x: auto;
 		scrollbar-width: none;
+		padding-bottom: env(safe-area-inset-bottom, 0);
+	}
+
+	.sticky-footer::-webkit-scrollbar {
+		display: none;
 	}
 
 	.sticky-footer::-webkit-scrollbar {
@@ -541,6 +546,15 @@
 
 	.grid-cell:last-child {
 		border-right: none;
+	}
+
+	/* Plan cells - allow text wrapping */
+	.plan-cell {
+		min-width: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
 	}
 
 	/* Label column - sticky on horizontal scroll */
